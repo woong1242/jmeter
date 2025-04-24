@@ -14,13 +14,12 @@ pipeline {
     stages {
         stage('Run Tests') {
             steps {
-                script{         
-                    sh 'rm -rf results'           
-                    sh 'rm -rf results.jtl'
+                script{                    
+                    sh 'pwd'
+                    sh 'rm -f results.jtl'
                     sh 'rm -rf report_output' // reports -> report_output으로 수정 (로그 참조)
                     sh 'mkdir -p results'       // 결과 파일 저장 디렉토리 생성
                     sh 'mkdir -p report_output' // 보고서 출력 디렉토리 생성
-                    sh 'mkdir -p results/report_output'
 
 
                     sh """
@@ -34,10 +33,10 @@ pipeline {
             }
         }
 
-        stage('퍼포먼스 리포트') {
+        stage('Publish Performance Report') {
             steps {
                 perfReport(
-                           sourceDataFiles: "${env.JTL_REPORT_FILE}",
+                           sourceDataFiles: "${JTL_REPORT_FILE}",
                            errorFailedThreshold: 1.0,
                            errorUnstableThreshold: 0.5
                     )
@@ -45,13 +44,13 @@ pipeline {
             }
         
 
-        stage('HTML Report') {
+        stage('Publish HTML Report') {
             steps {
                 publishHTML(
                     allowMissing: false,
                     alwaysLinkToLastBuild: false,
                     keepAll: false,
-                    reportDir: "${env.HTML_REPORT_DIR}",
+                    reportDir: "${HTML_REPORT_DIR}",
                     reportFiles: 'index.html',
                     reportName: 'JMeter Performance Report'
                 )
