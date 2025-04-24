@@ -13,7 +13,7 @@ services:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
-      - C:/Users/stw1232/Desktop/apache-jmeter-5.6.3/apache-jmeter-5.6.3:/opt/jmeter  # 이 줄을 추가하세요!
+      - C:/Users/stw1232/Desktop/apache-jmeter-5.6.3:/opt/jmeter  # 이 줄을 추가하세요!
    
     user: root
 volumes:
